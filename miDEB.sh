@@ -5,11 +5,11 @@ accion=0
 
 function error1 () {
     echo ''
-    echo ' [ARGUMENTO] [VARIABLES]'
-    echo ' ARGUMENTOS '
-    echo ' -h o --help              Ayuda.'
-    echo ' -cr o --crear            Crea un paquete con un nombre dedo como variable.'
-    echo ' -co o --codificar        Codifica un paquete con un nombre dedo como variable.'
+    echo ' [ARGUMENT] [VARIABLE]'
+    echo ' ARGUMENT '
+    echo ' -h o --help              Help.'
+    echo ' -cr o --create           Create a new project.'
+    echo ' -co o --codificate       Codificate a project as ".deb"'
     echo ''
 }
 
@@ -19,20 +19,20 @@ if [ $1 == '-h' ] || [ $1 == '--help' ] ; then
 fi
 
 if [ $# -ne 2 ] ; then
-    echo 'El número de parámetros introducidos es erroneo.'
+    echo 'Input error.'
     error1
     exit 2
 fi
 
 if [ -f $2 ] ; then
-    echo 'El fichero "'$2'" ya existe.'
+    echo 'The file "'$2'" already exist.'
     exit 3
 fi   
 
-if [ $1 == "-cr" ] || [ $1 == "--crear" ] ; then
+if [ $1 == "-cr" ] || [ $1 == "--create" ] ; then
     accion=1
 fi
-if [ $1 == "-co" ] || [ $1 == "--codificar" ] ; then
+if [ $1 == "-co" ] || [ $1 == "--codificate" ] ; then
     accion=2
 fi
 
