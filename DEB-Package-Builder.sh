@@ -49,7 +49,7 @@ __EOF__
         # BEFORE REMOVE - FILE
 	cat > $2/DEBIAN/prerm << __EOF__
 #! /bin/bash -e
-rm "/usr/bin/miPythonApp"
+rm -R "/usr/bin/miPythonApp"
 __EOF__
         # AFTER REMOVE - FILE
 	cat > $2/DEBIAN/postrm << __EOF__
