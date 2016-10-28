@@ -6,7 +6,7 @@ accion=0
 function error1 () {
     echo ''
     echo ' [ARGUMENT] [VARIABLE]'
-    echo ' ARGUMENT '
+    echo ' ARGUMENTS'
     echo ' -h o --help              Help.'
     echo ' -cr o --create           Create a new project.'
     echo ' -co o --codificate       Codificate a project as ".deb"'
@@ -41,33 +41,33 @@ case $accion in
         mkdir $2
         mkdir -p $2/usr/share/miPythonApp
         echo '' >> $2/usr/share/miPythonApp/launch.py
-        # CREANDO EL FICHERO DE CONTROL
+        # CONTROL FILE
         mkdir $2/DEBIAN
         cat > $2/DEBIAN/control << __EOF__
 Source: $2
 Package: $2
 Priority: optional
 Section: misc
-Maintainer: Alejandro Gomez <alejandrogomezmartin90@gmail.com>
-Homepage: http://www.uldum-freeiz.com/
+Maintainer: your_name <your_mail@mail.com>
+Homepage: http://www.your-webside.com/
 Architecture: all
 Version: 1.0
 Depends:
 Description: descripcion
  Programas que son muy necesarios.
 __EOF__
-        # CREANDO EL FICHERO postinst
+        # AFTER INSTALLATION - FILE
         cat > $2/DEBIAN/postinst << __EOF__
 #! /bin/bash -e
 ln -fs "/usr/share/miPythonApp/launch.py" "/usr/bin/miPythonApp"
 update-mime-database /usr/share/mime
 __EOF__
-        # CREANDO EL FICHERO prerm
+        # BEFORE REMOVE - FILE
 	cat > $2/DEBIAN/prerm << __EOF__
 #! /bin/bash -e
 rm "/usr/bin/miPythonApp"
 __EOF__
-        # CREANDO EL FICHERO postrm
+        # AFTER REMOVE - FILE
 	cat > $2/DEBIAN/postrm << __EOF__
 #! /bin/bash -e
 update-mime-database /usr/share/mime
