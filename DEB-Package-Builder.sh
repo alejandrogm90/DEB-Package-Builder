@@ -6,35 +6,19 @@ accion=0
 function error1 () {
     echo ''
     echo ' [ARGUMENT] [VARIABLE]'
-    echo ' ARGUMENTS'
+    echo ' ALL ARGUMENTS'
     echo ' -h o --help              Help.'
     echo ' -cr o --create           Create a new project.'
     echo ' -co o --codificate       Codificate a project as ".deb"'
     echo ''
 }
 
-if [ $1 == '-h' ] || [ $1 == '--help' ] ; then
-    error1
-    exit 1
-fi
+if [ $1 == '-h' ] || [ $1 == '--help' ] ; then error1 ; exit 1 ; fi
+if [ $# -ne 2 ] ; then echo 'Input error.' ; error1 ; exit 2 ; fi
+if [ -f $2 ] ; then echo 'The file "'$2'" already exist.' ; exit 3 ; fi   
 
-if [ $# -ne 2 ] ; then
-    echo 'Input error.'
-    error1
-    exit 2
-fi
-
-if [ -f $2 ] ; then
-    echo 'The file "'$2'" already exist.'
-    exit 3
-fi   
-
-if [ $1 == "-cr" ] || [ $1 == "--create" ] ; then
-    accion=1
-fi
-if [ $1 == "-co" ] || [ $1 == "--codificate" ] ; then
-    accion=2
-fi
+if [ $1 == "-cr" ] || [ $1 == "--create" ] ; then accion=1 ; fi
+if [ $1 == "-co" ] || [ $1 == "--codificate" ] ; then accion=2 ; fi
 
 case $accion in
     1)
