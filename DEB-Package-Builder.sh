@@ -15,7 +15,7 @@ function error1 () {
 
 if [ $1 == '-h' ] || [ $1 == '--help' ] ; then error1 ; exit 1 ; fi
 if [ $# -ne 2 ] ; then echo 'Input error.' ; error1 ; exit 2 ; fi
-if [ -f $2 ] ; then echo 'The file "'$2'" already exist.' ; exit 3 ; fi   
+if [ -f $2 ] ; then echo 'The file "'$2'" already exist.' ; exit 3 ; fi
 
 if [ $1 == "-cr" ] || [ $1 == "--create" ] ; then accion=1 ; fi
 if [ $1 == "-co" ] || [ $1 == "--codificate" ] ; then accion=2 ; fi
@@ -36,9 +36,15 @@ Maintainer: your_name <your_mail@mail.com>
 Homepage: http://www.your-webside.com/
 Architecture: all
 Version: 1.0
-Depends:
+Pre-Depends: pyton3
+Origin: your_origin
 Description: descripcion
- Programas que son muy necesarios.
+ Long descripcion .
+
+__EOF__
+        # BEFORE INSTALLATION - FILE
+        cat > $2/DEBIAN/preinst << __EOF__
+#! /bin/bash -e
 __EOF__
         # AFTER INSTALLATION - FILE
         cat > $2/DEBIAN/postinst << __EOF__
@@ -59,6 +65,7 @@ __EOF__
     ;;
     2)
         sudo chown -R root:root $2
+        if [ -f $2/DEBIAN/preinst ] ; then sudo chmod 555 $2/DEBIAN/postinst ; fi
         if [ -f $2/DEBIAN/postinst ] ; then sudo chmod 555 $2/DEBIAN/postinst ; fi
         if [ -f $2/DEBIAN/prerm ] ; then sudo chmod 555 $2/DEBIAN/prerm ; fi
         if [ -f $2/DEBIAN/postrm ] ; then sudo chmod 555 $2/DEBIAN/postrm ; fi
