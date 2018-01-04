@@ -41,7 +41,10 @@ Categories=Utility;
 Icon=icon.png
 __EOF__
         # AUTHORS, COPYNG, README
-        mkdir -p $2/usr/share/doc
+        mkdir -p $2/usr/share/doc/$2
+        echo '' >> $2/usr/share/doc/$2/README
+        echo '' >> $2/usr/share/doc/$2/AUTHORS
+        echo '' >> $2/usr/share/doc/$2/copyright
         # MENU GNOME
         mkdir -p $2/usr/share/menu
         cat > $2/usr/share/menu/$2 << __EOF__
@@ -50,6 +53,8 @@ title="$2" command="/usr/share/$2/launch.py"
 description="description"
 icon="/usr/share/$2/icon.png"
 __EOF__
+        # El directorio final de configuración de estos ficheros
+        # una vez instalados es: /var/lib/dpkg/info/*
         # CONTROL FILE
         mkdir $2/DEBIAN
         cat > $2/DEBIAN/control << __EOF__
@@ -61,7 +66,7 @@ Maintainer: your_name <your_mail@mail.com>
 Homepage: http://www.your-webside.com/
 Architecture: all
 Version: 1.0
-Pre-Depends: pyton3
+Pre-Depends: python3
 Origin: your_origin
 Description: descripcion
  Long descripcion .
@@ -80,7 +85,6 @@ __EOF__
         # BEFORE REMOVE - FILE
 	cat > $2/DEBIAN/prerm << __EOF__
 #! /bin/bash -e
-rm -R "/usr/bin/miPythonApp"
 __EOF__
         # AFTER REMOVE - FILE
 	cat > $2/DEBIAN/postrm << __EOF__
